@@ -1,32 +1,50 @@
-# Use the official .NET SDK image for building
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-
-# Set the working directory
+# Frontend build stage
+FROM node:18-alpine AS frontend
 WORKDIR /app
+# Cache dependencies separately
+COPY T9Frontend/package*.json ./
+RUN npm ci --quiet
+# Copy source and build
+COPY T9Frontend/ ./
+ENV NODE_ENV=production
+# Set environment variable for Docker build
+ENV DOCKER_BUILD=true
+# Run the build
+RUN npm run build
 
-# Copy only the .csproj file(s) first to leverage Docker's caching
-COPY T9Backend/*.csproj ./T9Backend/
+# Backend build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS backend
+WORKDIR /app
+# Copy and restore as distinct layers
+COPY T9Backend/*.csproj ./
+RUN dotnet restore
+# Copy everything else
+COPY T9Backend/ ./
+# Clear existing wwwroot if exists
+RUN rm -rf ./wwwroot/* || true
+# IMPORTANT: Copy frontend build from the correct location
+COPY --from=frontend /app/dist/ ./wwwroot/
+# Build with Release configuration
+RUN dotnet publish -c Release -o out
 
-# Restore dependencies
-RUN dotnet restore T9Backend/T9Backend.csproj
+# Make sure the Data directory and files are included in the publish output
+RUN mkdir -p /app/out/Data
+COPY T9Backend/Data/*.txt /app/out/Data/
 
-# Copy the rest of the application files
-COPY . .
-
-# Build the application
-RUN dotnet publish T9Backend/T9Backend.csproj -c Release -o /out
-
-# Use the official .NET runtime image for running
+# Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
-
-# Set the working directory
 WORKDIR /app
+# Copy built app from backend stage
+COPY --from=backend /app/out ./
 
-# Copy the published files from the build stage
-COPY --from=build /out .
+# Verify the data file exists (for debugging)
+RUN ls -la /app/Data
 
-# Expose the port
+# Runtime configuration
+ENV ASPNETCORE_URLS=http://+:80
+
+# ENV ASPNETCORE_ENVIRONMENT=Production
+# Update this line in your Dockerfile to use Development
+ENV ASPNETCORE_ENVIRONMENT=Development
 EXPOSE 80
-
-# Start the application
 ENTRYPOINT ["dotnet", "T9Backend.dll"]
