@@ -1,0 +1,6 @@
+@T9Backend_HostAddress = http://localhost:5019
+
+GET {{T9Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

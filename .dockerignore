@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Development
+**/.vscode/
+**/.vs/
+**/.idea/
+**/node_modules/
+**/npm-debug.log
+**/yarn-error.log
+
+# Build artifacts
+**/bin/
+**/obj/
+**/dist/
+**/build/
+**/out/
+**/wwwroot/
+
+# Test files
+**/coverage/
+**/.nyc_output
+**/*.spec.ts
+**/*.spec.js
+**/*.test.ts
+**/*.test.js
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Misc
+.DS_Store
+*.swp
+*.swo

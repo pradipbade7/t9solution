@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/pradipbade/Desktop/T9Solution/T9Backend/wwwroot/assets/index-B80Mhu8A.css",
+      "PackagePath": "staticwebassets/assets/index-B80Mhu8A.css"
+    },
+    {
+      "Id": "/Users/pradipbade/Desktop/T9Solution/T9Backend/wwwroot/assets/index-C9yDZt4h.js",
+      "PackagePath": "staticwebassets/assets/index-C9yDZt4h.js"
+    },
+    {
+      "Id": "/Users/pradipbade/Desktop/T9Solution/T9Backend/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/Users/pradipbade/Desktop/T9Solution/T9Backend/wwwroot/vite.svg",
+      "PackagePath": "staticwebassets/vite.svg"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.T9Backend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.T9Backend.props",
+      "PackagePath": "build\\T9Backend.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.T9Backend.props",
+      "PackagePath": "buildMultiTargeting\\T9Backend.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.T9Backend.props",
+      "PackagePath": "buildTransitive\\T9Backend.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  t9app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: t9wordmatcher:latest
+    container_name: t9app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
